@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: localhost
   tasks:
   - name: Install Docker
     apt:
@@ -9,8 +9,9 @@
   - name: Build Docker image
     docker_image:
       name: mi_proyecto
-      source: .
-      pull: false
+      source: build
+      build:
+      path: .
 
   - name: Run Docker container
     docker_container:
