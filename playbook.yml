@@ -1,49 +1,22 @@
+---
 - hosts: localhost
   tasks:
-<<<<<<< HEAD
-    - name: Check if container is running
-      docker_container_info:
-        name: mi_proyecto
-      register: container_info
-=======
 #  - name: Install Docker
 #    apt:
 #      name: docker.io
 #     state: present
->>>>>>> fd9f589 (final CIDI)
 
-    - name: Stop running container
-      docker_container:
-        name: mi_proyecto
-        state: stopped
-      when: container_info.exists and container_info.container.State.Running
+  - name: Build Docker image
+    docker_image:
+      name: mi_proyecto
+      source: build
+      build:
+      path: .
 
-    - name: Build Docker image
-      docker_image:
-        name: mi_proyecto
-        source: build
-        build:
-          path: .
-
-    - name: Stop existing container
-      docker_container:
-        name: mi_proyecto
-        state: stopped
-
-    - name: Remove existing container
-      docker_container:
-        name: mi_proyecto
-        state: absent
-
-    - name: Pull latest image
-      docker_image:
-        name: mi_proyecto
-        source: pull
-
-    - name: Run Docker container
-      docker_container:
-        name: mi_proyecto
-        image: mi_proyecto
-        ports:
-          - "3000:3000"
-        state: started
+  - name: Run Docker container
+    docker_container:
+      name: mi_proyecto
+      image: mi_proyecto
+      ports:
+        - "3000:3000"
+      state: started
