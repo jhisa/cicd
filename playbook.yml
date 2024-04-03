@@ -1,9 +1,16 @@
 - hosts: localhost
   tasks:
+<<<<<<< HEAD
     - name: Check if container is running
       docker_container_info:
         name: mi_proyecto
       register: container_info
+=======
+#  - name: Install Docker
+#    apt:
+#      name: docker.io
+#     state: present
+>>>>>>> fd9f589 (final CIDI)
 
     - name: Stop running container
       docker_container:
